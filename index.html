@@ -1,8 +1,90 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-    <title>hanin</title>
-  </head>
-  <body class="page">
-<iframe width="1300px" height="750px" class="list" 
-    src="https://docs.google.com/document/d/e/2PACX-1vTwCJT_r2sFYt5fUJaRtZx1hCi6Zdze1gYFXblAtTg5RWuemDNtFhdwABgS4FvSg32yNoDwp6TiXncN/pub?embedded=true"></iframe>
-  </body></html>
+<html><head><meta name="color-scheme" content="light dark"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">import random
+
+print("\n ~~~ Password Manager ~~~ \n")
+choice = input('Type \'add\' for adding password,\n     \'get\' for getting all passwords,\n  or \'gen\' for '
+               'generating password: ')
+
+if choice == 'gen':
+    characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    gen_pwd = ''
+    for i in range(8):
+        gen_pwd += random.choice(characters)
+    print("\nGenerated Strong Password:", gen_pwd)
+    print('Feel free to copy it and use anywhere :)')
+
+while choice == 'get':
+    sign = input("\nEnter Master PIN('p') or  Create one('c'): ")
+
+    if sign == 'c':
+        master_pin = input("Create a Master PIN: ")
+        f = open("master.txt", "a")
+        f.write(master_pin)
+        f.write('\n')
+        f.close()
+
+    if sign == 'p':
+        entered_pin = input("Enter your Master PIN: ")
+        fm = open("master.txt", "r")
+        file_contents = fm.read()
+        if entered_pin in file_contents:
+            print()
+            fp = open("pwd.txt", "r")
+            for line in fp:
+                print(line, end='')
+            fp.close()
+
+            e_d = input('[edit/delete/exit]: ')
+
+            if e_d == 'edit':
+                with open("pwd.txt", 'r') as file:
+                    content = file.read()
+                web_edit = input('Enter the website to edit:')
+                old_pwd = input('Enter the old password:')
+                if web_edit in content and old_pwd in content:
+                    new_pwd = input('enter new password:')
+                    modified_content = content.replace(old_pwd, new_pwd)
+                    with open('pwd.txt', 'w') as file:
+                        file.write(modified_content)
+                    file.close()
+                    print("\nEDITED successfully!")
+                else:
+                    print('website or password not found!')
+
+            elif e_d == 'delete':
+                with open("pwd.txt", 'r') as file:
+                    content = file.read()
+                web_del = input('Enter the website to delete: ')
+                eml_del = input('Enter the email: ')
+                pwd_del = input('Enter the password: ')
+                if web_del in content and eml_del in content and pwd_del in content:
+                    modified_content = content.replace(web_del, '').replace(eml_del, '').replace(pwd_del, '')
+                    with open('pwd.txt', 'w') as file:
+                        file.write(modified_content)
+                    file.close()
+                    print("\nDELETED successfully!")
+                else:
+                    print('website, email or password is wrong!')
+
+            else:
+                exit()
+
+        elif entered_pin not in file_contents:
+            print("Wrong username or password. Try again!")
+            break
+
+if choice == 'add':
+    print()
+    website = input("Website: ")
+    email = input("E-mail: ")
+    pwd = input("Password: ")
+    f = open("pwd.txt", "a")
+    f.write("website: ")
+    f.write(website)
+    f.write("\nemail: ")
+    f.write(email)
+    f.write("\npassword: ")
+    f.write(pwd)
+    f.write("\n")
+    f.write("\n")
+    f.close()
+</pre></body></html>
