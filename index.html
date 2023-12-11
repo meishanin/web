@@ -4,13 +4,46 @@
 
     </head><body style="font-family: Consolas" bgcolor="black">
         
-        <h1>e</h1> 
-       
-    
-        
-    <a class="a" href="https://file.io/iuLQtOJVwO3J" target="_blank" style="font-size:30px;">back</a>
-    <a class="a" href="https://file.io/STG4HcizrCyQ" target="_blank" style="font-size:30px;">cover</a>
-    <a class="a" href="https://wormhole.app/L2krK#Lci2ic8HyRJmGznNWVz1QQ" target="_blank" style="font-size:30px;">BACcUP</a>
+        <p1>import customtkinter as ctk
+import threading
+import time
+
+root = ctk.CTk()
+root.geometry('300x300')
+root.title('Mind Reader')
+
+
+def button_func():
+    numero = entry.get()
+    print(numero)
+    loading_screen = ctk.CTkToplevel()
+    loading_screen.transient(root)
+    loading_screen.title("Reading your Mind...")
+    loading_screen.geometry("300x200")
+    bar = ctk.CTkProgressBar(loading_screen, width=200, height=20, progress_color='green')
+    bar.pack(pady=12)
+
+    def move():
+        start = time.time()
+        steps = 1
+        for i in range(100):
+            value = i * steps / 100
+            bar.set(value)
+            print(bar.get())
+            time.sleep(0.03)
+        end = time.time()
+        print(end - start)
+    thread = threading.Thread(target=move)
+    thread.start()
+
+
+ctk.CTkLabel(root, text='Think of a number 1-10').pack(pady=12)
+entry = ctk.CTkEntry(root, placeholder_text='Enter number...')
+entry.pack(pady=12)
+ctk.CTkButton(root, text='Read My Mind', command=button_func).pack(pady=12)
+
+root.mainloop()
+</p1>
 
     
 
