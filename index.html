@@ -1,17 +1,18 @@
-<html><head><title>
-        plswork
-    </title>
-
-    </head><body style="font-family: Consolas" bgcolor="black">
-        
-        <p1>import customtkinter as ctk
+<!DOCTYPE html>
+<html>
+<head>
+    <title>plswork</title>
+</head>
+<body style="font-family: Consolas" bgcolor="black">
+    <pre>
+        <code>
+import customtkinter as ctk
 import threading
 import time
 
 root = ctk.CTk()
 root.geometry('300x300')
 root.title('Mind Reader')
-
 
 def button_func():
     numero = entry.get()
@@ -33,9 +34,9 @@ def button_func():
             time.sleep(0.03)
         end = time.time()
         print(end - start)
+
     thread = threading.Thread(target=move)
     thread.start()
-
 
 ctk.CTkLabel(root, text='Think of a number 1-10').pack(pady=12)
 entry = ctk.CTkEntry(root, placeholder_text='Enter number...')
@@ -43,10 +44,7 @@ entry.pack(pady=12)
 ctk.CTkButton(root, text='Read My Mind', command=button_func).pack(pady=12)
 
 root.mainloop()
-</p1>
-
-    
-
-    
-
-</body></html>
+        </code>
+    </pre>
+</body>
+</html>
